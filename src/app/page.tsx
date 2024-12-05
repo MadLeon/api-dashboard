@@ -23,7 +23,7 @@ import {
 
 export default function Home(): JSX.Element {
   // State variables
-  const [isOpen, setIsOpen] = useState(true); // Whether the popover is open
+  const [isOpen, setIsOpen] = useState(false); // Whether the popover is open
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [newsData, setNewsData] = useState<NewsData | null>(null);
   const [stockData, setStockData] = useState<StockDataWrapper | null>(null);
