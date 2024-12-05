@@ -5,6 +5,7 @@ import { CacheManager } from "./CacheManager";
 // Implementing Facade Pattern (Structural Pattern)
 
 // The facade will provide a simple interface to the complex system of APIs
+// All data queries are wrapped in getDashboardData
 // It will also handle the caching of the data
 export const getDashboardData = async (selectedPanels: PanelState | null) => {
   try {
