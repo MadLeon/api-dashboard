@@ -6,6 +6,7 @@ interface ButtonProps {
   className?: string;
 }
 
+// Custom button component
 export default function Button({
   children,
   onClick,

@@ -15,6 +15,7 @@ interface PopoverProps {
   onSave: () => void;
 }
 
+// Custom component for the popover
 export default function Popover({
   isOpen,
   onClose,
@@ -24,7 +25,9 @@ export default function Popover({
 }: PopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
 
+  // Run whenever the isOpen state changes
   useEffect(() => {
+    // Handle when click outside of the popover
     const handleClickOutside = (event: MouseEvent) => {
       if (
         popoverRef.current &&
@@ -34,12 +37,14 @@ export default function Popover({
       }
     };
 
+    // Add the event listener if the popover is open
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
+    // Remove the event listener when the component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };

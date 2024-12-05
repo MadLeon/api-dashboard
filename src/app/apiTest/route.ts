@@ -1,16 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
+// Backend API (/apiTest) to fetch test data for Milestone 3
 export async function GET() {
   try {
     // Get weather data
     const weatherApiKey = process.env.WEATHER_API_KEY;
-    const city = 'Toronto';
+    const city = "Toronto";
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`;
     const weatherResponse = await fetch(weatherUrl);
     const weatherData = await weatherResponse.json();
 
     if (!weatherResponse.ok) {
-      throw new Error('Failed to fetch weather data');
+      throw new Error("Failed to fetch weather data");
     }
 
     // Get Canada news data
@@ -20,58 +21,56 @@ export async function GET() {
     const newsData = await newsResponse.json();
     const filteredNewsData = {
       ...newsData,
-      articles: newsData.articles.slice(0, 5)
+      articles: newsData.articles.slice(0, 5),
     };
 
     if (!newsResponse.ok) {
-      throw new Error('Failed to fetch news data');
+      throw new Error("Failed to fetch news data");
     }
 
     // Get US stock data
-    const alphaVintageKey = process.env.ALPHA_VANTAGE_KEY;
-    const stockSymbol = 'IBM'; // Example stock symbol
-    const stockUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${alphaVintageKey}`;
+    // const alphaVintageKey = process.env.ALPHA_VANTAGE_KEY;
+    const stockSymbol = "IBM"; // Example stock symbol
+    const stockUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=demo`;
     const stockResponse = await fetch(stockUrl);
     const stockData = await stockResponse.json();
 
     if (!stockResponse.ok) {
-      throw new Error('Failed to fetch stock data');
+      throw new Error("Failed to fetch stock data");
     }
 
     // Get Bitcoin price data
-    const cryptoUrl = 'https://api.coincap.io/v2/assets/bitcoin';
+    const cryptoUrl = "https://api.coincap.io/v2/assets/bitcoin";
     const cryptoResponse = await fetch(cryptoUrl);
     const cryptoData = await cryptoResponse.json();
 
     if (!cryptoResponse.ok) {
-      throw new Error('Failed to fetch cryptocurrency data');
+      throw new Error("Failed to fetch cryptocurrency data");
     }
 
     return NextResponse.json({
       weather: {
-        title: 'Toronto Weather Forecast',
-        data: weatherData
+        title: "Toronto Weather Forecast",
+        data: weatherData,
       },
       news: {
-        title: 'Canada Top Headlines',
-        data: filteredNewsData
+        title: "Canada Top Headlines",
+        data: filteredNewsData,
       },
       stock: {
-        title: 'US Stock Market Data',
-        data: stockData
+        title: "US Stock Market Data",
+        data: stockData,
       },
       crypto: {
-        title: 'Bitcoin Price Data',
-        data: cryptoData
-      }
+        title: "Bitcoin Price Data",
+        data: cryptoData,
+      },
     });
-
   } catch (error) {
-    console.error('API request error:', error);
+    console.error("API request error:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch data' },
+      { error: "Failed to fetch data" },
       { status: 500 }
     );
   }
 }
-
